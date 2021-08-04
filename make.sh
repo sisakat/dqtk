@@ -14,3 +14,5 @@ echo >> dq.sql
 cat dq_apply.sql >> dq.sql
 echo >> dq.sql
 cat dq_sp_apply.sql >> dq.sql
+echo >> dq.sql
+cat dq_sp_query_linked_server.sql >> dq.sql
