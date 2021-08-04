@@ -12,3 +12,5 @@ echo >> dq.sql
 cat dq_apply_quoted.sql >> dq.sql
 echo >> dq.sql
 cat dq_apply.sql >> dq.sql
+echo >> dq.sql
+cat dq_sp_apply.sql >> dq.sql
