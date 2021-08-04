@@ -2,7 +2,7 @@
 -- Author:      Stefan Isak
 -- Create date: 03.08.2021
 -- =============================================
-CREATE PROCEDURE [dbo].[dq_sp_query_linked_server]
+CREATE PROCEDURE [dq].[sp_query_linked_server]
     @linked_server nvarchar(30),
     @query nvarchar(max),
     @p1 nvarchar(max) = NULL,
@@ -39,7 +39,7 @@ AS
 BEGIN
     declare @sql nvarchar(max) =
         'select * from openquery(' + @linked_server + ', ''' + replace(@query, '''', '''''') + ''')'
-    exec dq_sp_apply @sql output, @p1,
+    exec sp_apply @sql output, @p1,
         @p2,
         @p3,
         @p4,

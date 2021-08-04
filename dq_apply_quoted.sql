@@ -2,7 +2,7 @@
 -- Author:      Stefan Isak
 -- Create date: 03.08.2021
 -- =============================================
-CREATE FUNCTION [dbo].[dq_apply_quoted]
+CREATE FUNCTION [dq].[apply_quoted]
 (
     @query nvarchar(max),
     @parameter nvarchar(30),
@@ -23,7 +23,7 @@ BEGIN
     -- cursor for each variable occurence in the string
     declare cur cursor read_only for
         select surrounded_quotes, start_idx, end_idx
-        from dbo.dq_extract(@query, '@')
+        from dq.extract(@query, '@')
         where variable_name = @parameter
         order by start_idx asc
     

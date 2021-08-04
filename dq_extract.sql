@@ -2,7 +2,7 @@
 -- Author:      Stefan Isak
 -- Create date: 03.08.2021
 -- =============================================
-CREATE FUNCTION [dbo].[dq_extract] 
+CREATE FUNCTION [dq].[extract] 
 (
     @input nvarchar(max),
     @startch char
@@ -36,7 +36,7 @@ BEGIN
             set @next = '' 
         end
 
-        if dbo.dq_letter(@curr) = 0 and @start = 1 begin
+        if dq.letter(@curr) = 0 and @start = 1 begin
             insert into @variable_names values (@name, @quote_count, @startidx, @i)
             set @start = 0
             set @startidx = 0

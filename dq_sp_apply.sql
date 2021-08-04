@@ -2,7 +2,7 @@
 -- Author:      Stefan Isak
 -- Create date: 03.08.2021
 -- =============================================
-CREATE PROCEDURE [dbo].[dq_sp_apply]
+CREATE PROCEDURE [dq].[sp_apply]
     @query nvarchar(max) OUTPUT,
     @p1 nvarchar(max) = NULL,
     @p2 nvarchar(max) = NULL,
@@ -47,7 +47,7 @@ BEGIN
     -- cursor for each variable occurence in the string
     declare cur cursor read_only for
         select surrounded_quotes, start_idx, end_idx
-        from dbo.dq_extract(@query, '?')
+        from dq.dq_extract(@query, '?')
         order by start_idx asc
     
     open cur

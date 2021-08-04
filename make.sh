@@ -1,7 +1,9 @@
 cat header.txt  | awk '{print "-- " $0}' >  dq.sql
 cat LICENSE | awk '{print "-- " $0}' >> dq.sql
 echo >> dq.sql
-cat drops.sql >> dq.sql
+cat ddl_drops.sql >> dq.sql
+echo >> dq.sql
+cat ddl_schema.sql >> dq.sql
 echo >> dq.sql
 cat dq_quote.sql >> dq.sql
 echo >> dq.sql

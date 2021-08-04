@@ -2,7 +2,7 @@
 -- Author:      Stefan Isak
 -- Create date: 03.08.2021
 -- =============================================
-CREATE FUNCTION [dbo].[dq_apply]
+CREATE FUNCTION [dq].[apply]
 (
     @query nvarchar(max),
     @parameter nvarchar(30),
@@ -11,6 +11,6 @@ CREATE FUNCTION [dbo].[dq_apply]
 RETURNS nvarchar(max)
 AS
 BEGIN
-    return dbo.dq_apply_quoted(@query, @parameter, @value, 1)
+    return dq.apply_quoted(@query, @parameter, @value, 1)
 END
 GO
