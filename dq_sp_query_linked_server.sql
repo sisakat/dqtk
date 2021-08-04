@@ -39,7 +39,7 @@ AS
 BEGIN
     declare @sql nvarchar(max) =
         'select * from openquery(' + @linked_server + ', ''' + replace(@query, '''', '''''') + ''')'
-    exec sp_apply @sql output, @p1,
+    exec dq.sp_apply @sql output, @p1,
         @p2,
         @p3,
         @p4,
