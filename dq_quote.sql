@@ -1,5 +1,5 @@
 -- =============================================
--- Author:        Stefan Isak
+-- Author:      Stefan Isak
 -- Create date: 03.08.2021
 -- =============================================
 CREATE FUNCTION [dbo].[dq_quote]
