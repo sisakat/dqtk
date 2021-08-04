@@ -34,3 +34,5 @@ exec dq.sp_query_linked_server 'linked_server_name',
 	'Parameter value for x',
 	'Parameter value for y'
 ```
+
+A maximum of 30 parameters are supported.
