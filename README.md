@@ -29,5 +29,8 @@ select * from openquery(linked_server, '
 The following SQL snippet shows an easy way of executing linked server queries:
 
 ```sql
-exec dq.sp_query_linked_server 'linked_server_name', 'select * from anytable where x = ?', 'Parameter value'
+exec dq.sp_query_linked_server 'linked_server_name', 
+	'select * from anytable where x = ?, y = ?', 
+	'Parameter value for x',
+	'Parameter value for y'
 ```
