@@ -1,3 +1,11 @@
+IF object_id(N'dq_sp_query_linked_server', N'P') is not null
+    drop procedure dq_sp_query_linked_server
+GO
+
+IF object_id(N'dq_sp_apply', N'P') is not null
+    drop procedure dq_sp_apply
+GO
+
 IF object_id(N'dq_apply', N'FN') is not null
     drop function dq_apply
 GO
