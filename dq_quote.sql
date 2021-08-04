@@ -1,16 +1,15 @@
 -- =============================================
--- Author:		Stefan Isak
+-- Author:        Stefan Isak
 -- Create date: 03.08.2021
--- Description:	Quotation Variables
 -- =============================================
 CREATE FUNCTION [dbo].[dq_quote]
 (
-	@input nvarchar(max),
-	@depth int
+    @input nvarchar(max),
+    @depth int
 )
 RETURNS nvarchar(max)
 AS
 BEGIN
-	return replicate('''', @depth) + @input + replicate('''', @depth)
+    return replicate('''', @depth) + @input + replicate('''', @depth)
 END
 GO

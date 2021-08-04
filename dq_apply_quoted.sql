@@ -1,7 +1,6 @@
 -- =============================================
 -- Author:		Stefan Isak
 -- Create date: 03.08.2021
--- Description:	Dq Apply
 -- =============================================
 CREATE FUNCTION [dbo].[dq_apply_quoted]
 (
@@ -15,16 +14,50 @@ AS
 BEGIN
 	set @parameter = replace(@parameter, '@', '')
 	declare @quotations int = 0
-	select @quotations = surrounded_quotes
-	from dbo.dq_extract(@query, '@')
-	where variable_name = @parameter;
-	declare @quotes nvarchar(30) = 
-		case when @quote = 1 
+	declare @start_idx int = 0
+	declare @end_idx int = 0
+	declare @offset int = 0
+	declare @quotes nvarchar(30)
+	declare @result nvarchar(max)
+
+	-- cursor for each variable occurence in the string
+	declare cur cursor read_only for
+		select surrounded_quotes, start_idx, end_idx
+		from dbo.dq_extract(@query, '@')
+		where variable_name = @parameter
+		order by start_idx asc
+	
+	open cur
+	fetch next from cur into @quotations, @start_idx, @end_idx
+	while @@FETCH_STATUS = 0 begin
+		set @quotes = case when @quote = 1 
 			then replicate('''', case when @quotations = 0 
 							     then 1 
 								 else isnull(@quotations, 1) * 2 end
 						  ) 
 			else '' end
-	return replace(@query, '@' + @parameter, @quotes + @value + @quotes)
+			
+		-- compute the final value that should be replaced
+		set @result = @quotes + @value + @quotes
+
+		-- replace the original value
+		set @query = stuff(@query, 
+						@start_idx + @offset, 
+						(@end_idx + @offset) - (@start_idx + @offset), 
+						replace(substring(@query, 
+									@start_idx + @offset, 
+									(@end_idx + @offset) - (@start_idx + @offset)), 
+							'@' + @parameter, 
+							@result)
+					 )
+
+		-- calculate an offset to the next index based on the new string
+		set @offset = @offset + len(@result) - len(@parameter) - 1
+		
+		fetch next from cur into @quotations, @start_idx, @end_idx
+	end
+	close cur
+	deallocate cur
+	return @query
 END
 GO
