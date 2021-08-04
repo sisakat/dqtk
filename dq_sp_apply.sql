@@ -47,7 +47,7 @@ BEGIN
     -- cursor for each variable occurence in the string
     declare cur cursor read_only for
         select surrounded_quotes, start_idx, end_idx
-        from dq.dq_extract(@query, '?')
+        from dq.extract(@query, '?')
         order by start_idx asc
     
     open cur
